@@ -1,0 +1,261 @@
+/* Define CSS Variables for the color palette (Dark Grey & Cyan)
+   These variables make it easy to change the theme colors globally. */
+:root {
+    --main-bg: #1A1A1A; /* Very dark grey/near black for main background */
+    --card-bg: #2D2D2D; /* Slightly lighter dark grey for card backgrounds */
+    --accent-cyan: #00E0E0; /* Bright cyan/teal accent color */
+    --text-primary: #FFFFFF; /* Pure white for main headings and important text */
+    --text-secondary: #E0E0E0; /* Light grey for paragraphs and general text */
+    --text-subtle: #A0A0A0; /* Medium grey for subtle text like footer */
+}
+
+/* Base body styles applying font and background/text colors from variables */
+body {
+    font-family: 'Inter', sans-serif; /* Modern, clean sans-serif font */
+    background-color: var(--main-bg); /* Apply main background color */
+    color: var(--text-secondary); /* Apply general text color */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    margin: 0; /* Remove default body margin */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Section content visibility control for navigation */
+.section-content {
+    display: none; /* Hidden by default */
+}
+.section-content.active {
+    display: block; /* Show active section */
+}
+
+/* Navigation button styles and transitions for interactive feedback */
+.nav-button {
+    transition: all 0.2s ease-in-out; /* Smooth transition for all properties */
+}
+.nav-button.active {
+    color: var(--accent-cyan); /* Active button uses the accent color */
+    font-weight: 600; /* Bold font for active button */
+}
+/* Styles for when a nav button is pressed (mousedown or touchstart) */
+.nav-button.is-pressed {
+    transform: scale(0.96) translateY(2px) !important; /* Slightly scale down and move down on press */
+    opacity: 0.8; /* Slightly dim on press */
+    color: var(--accent-cyan) !important; /* Ensure color changes on press, overriding inline styles */
+}
+
+
+/* Glowing Image Container Styles for the profile picture */
+.glowing-image-container {
+    position: relative;
+    width: 200px; /* Fixed width */
+    height: 250px; /* Fixed height */
+    border-radius: 0.75rem; /* Rounded corners */
+    overflow: hidden; /* Hide overflow for the glow effect */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* Center the image horizontally on small screens */
+}
+
+.glowing-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+    filter: brightness(110%); /* Slightly brighter image */
+    border-radius: 0.75rem; /* Match container's rounded corners */
+    position: relative;
+    z-index: 1; /* Ensure image is above the pseudo-element glow */
+}
+
+/* Pseudo-element for the glowing border effect around the image */
+.glowing-image-container::before {
+    content: '';
+    position: absolute;
+    top: -2px; /* Extend slightly beyond the image for blur effect */
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    /* Gradient using accent color for the glow */
+    background: linear-gradient(135deg, var(--accent-cyan), rgba(0, 224, 224, 0.5), var(--accent-cyan));
+    z-index: 0; /* Place behind the image */
+    border-radius: inherit; /* Inherit border-radius from parent */
+    filter: blur(10px); /* Apply blur for the glow effect */
+    opacity: 0.7; /* Semi-transparent glow */
+    animation: rotate-glow 5s linear infinite; /* Continuous rotation animation */
+}
+
+@keyframes rotate-glow {
+    0% {
+        filter: blur(10px) hue-rotate(0deg); /* Start with no hue rotation */
+    }
+    100% {
+        filter: blur(10px) hue-rotate(360deg); /* Rotate hue 360 degrees */
+    }
+}
+
+/* Text animation for elements that fade in and slide up on scroll */
+.animated-text {
+    opacity: 0; /* Start hidden */
+    transform: translateY(20px); /* Start slightly below final position */
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Smooth transition */
+}
+
+.animated-text.is-animated {
+    opacity: 1; /* Fade in */
+    transform: translateY(0); /* Slide up to final position */
+}
+
+/* Typing animation cursor style */
+.typing-text::after {
+    content: '|'; /* Vertical bar cursor */
+    display: inline-block;
+    animation: blink-caret 0.75s step-end infinite; /* Blinking animation */
+    margin-left: 2px; /* Small space after text */
+}
+
+/* Keyframes for the blinking cursor */
+@keyframes blink-caret {
+    from, to { border-color: transparent } /* Hidden at start and end */
+    50% { border-color: var(--accent-cyan); } /* Visible at 50% with accent color */
+}
+
+/* Styles for skill items and portfolio cards, including press animation */
+.skill-item, .portfolio-item {
+    transition: all 0.2s ease-in-out; /* Smooth transitions for interactive effects */
+}
+.skill-item.is-pressed, .portfolio-item.is-pressed {
+    transform: scale(0.96) translateY(0); /* Slightly scale down on press */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Deeper shadow on press */
+}
+
+/* Transparent Glowing Column Style for skill and portfolio cards */
+.glowing-column {
+    background-color: rgba(45, 45, 45, 0.7); /* Card background with transparency */
+    box-shadow: 0 0px 20px rgba(0, 224, 224, 0.4), /* Cyan glow effect */
+                0 4px 6px rgba(0, 0, 0, 0.1); /* Standard shadow for depth */
+    backdrop-filter: blur(5px); /* Optional: adds a subtle blur to content behind it */
+    -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
+    border: 1px solid rgba(0, 224, 224, 0.2); /* Subtle cyan border */
+}
+
+/* Portfolio Button Styling (e.g., "Coming Soon" buttons) */
+.portfolio-button {
+    color: var(--accent-cyan); /* Text color is accent cyan */
+    border-color: var(--accent-cyan); /* Border color is accent cyan */
+    background-color: transparent; /* Transparent background */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out; /* Smooth transitions */
+}
+.portfolio-button:hover {
+    background-color: var(--accent-cyan); /* Fill with accent cyan on hover */
+    color: var(--main-bg); /* Change text to main background color for contrast */
+}
+
+/* Download CV Button Styling - customized for a sleek, dark appearance */
+.download-cv-button {
+    display: inline-flex; /* Allows icon and text to sit side-by-side */
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Horizontally align items */
+    padding: 0.5rem 1.25rem; /* Smaller size: py-2 px-5 equivalent */
+    border-radius: 9999px; /* Pill shape (very large border-radius) */
+    font-weight: 600; /* Semi-bold font */
+    text-decoration: none; /* Remove underline */
+    background-color: var(--card-bg); /* Darker background for the button */
+    color: var(--text-primary); /* Light text color for contrast */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out; /* Smooth transitions */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Subtle dark shadow */
+    border: none; /* No explicit border */
+}
+.download-cv-button:hover {
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Enhanced shadow on hover */
+    background-color: var(--main-bg); /* Slightly darker background on hover */
+}
+/* Styles for when the CV button is pressed (mousedown or touchstart) */
+.download-cv-button.is-pressed {
+    transform: scale(0.98) translateY(0) !important; /* Slightly scale down on press, !important for reliability */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Deeper shadow on press */
+    background-color: var(--main-bg); /* Keep dark background on press */
+}
+
+/* Styles for the new Gemini API powered features */
+.generate-description-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1rem; /* Smaller padding */
+    border-radius: 9999px; /* Pill shape */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* medium font */
+    text-decoration: none;
+    background-color: var(--accent-cyan); /* Accent color background */
+    color: var(--main-bg); /* Text color contrasting with accent */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 224, 224, 0.3);
+    border: none;
+    margin-top: 0.75rem; /* Space from description */
+}
+.generate-description-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 224, 224, 0.4);
+    background-color: rgba(0, 224, 224, 0.8); /* Slightly darker cyan on hover */
+}
+.generate-description-button.is-pressed {
+    transform: scale(0.96) translateY(0) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 224, 224, 0.9);
+}
+
+.generated-description-text {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: rgba(0, 224, 224, 0.1); /* Light cyan background */
+    border-left: 4px solid var(--accent-cyan);
+    border-radius: 0.375rem; /* rounded-md */
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    text-align: left; /* Ensure text aligns left within its box */
+    animation: fadeIn 0.5s ease-out; /* Fade in animation for generated text */
+}
+
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+}
+
+.loading-spinner {
+    border: 3px solid rgba(0, 224, 224, 0.3);
+    border-top: 3px solid var(--accent-cyan);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Social media icon hover effect */
+.social-icon-link {
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.social-icon-link:hover {
+    transform: translateY(-2px) scale(1.1);
+    color: var(--accent-cyan);
+    box-shadow: 0 4px 8px rgba(0, 224, 224, 0.3);
+    border-radius: 50%; /* Make shadow rounded for icons */
+}
+.social-icon-link.is-pressed {
+    transform: scale(0.9) translateY(0) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
