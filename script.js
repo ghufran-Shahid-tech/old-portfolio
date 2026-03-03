@@ -16,14 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons for all elements with data-lucide attribute
     lucide.createIcons();
 
-    // Typing Animation Logic for the "And I'm a..." phrase
-    const phrases = [
-        "Web Development Learner",
-        "Ethical Hacking Learner",
-        "Prompt Engineering Learner",
-        "AI Agents and AI Assistant Learner",
-        "Graphic Designing Learner"
-    ];
+ 
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -240,4 +233,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initially show the 'about' section and start its animations on page load
     showSection('about');
 });
+
 
