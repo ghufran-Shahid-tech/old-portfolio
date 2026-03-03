@@ -16,45 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide icons for all elements with data-lucide attribute
     lucide.createIcons();
 
- 
-    let phraseIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingSpeed = 150; // milliseconds per character for typing
-    let deletingSpeed = 40; // milliseconds per character for deleting
-    let pauseBeforeDelete = 1500; // milliseconds to pause before deleting a phrase
-    let pauseBeforeType = 500; // milliseconds to pause before typing the next phrase
-
-    function typeWriter() {
-        // Ensure typingTextElement exists before proceeding
-        if (!typingTextElement) return;
-
-        const currentPhrase = phrases[phraseIndex];
-        if (isDeleting) {
-            // If deleting, remove one character
-            typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            // If typing, add one character
-            typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        let currentTypingSpeed = isDeleting ? deletingSpeed : typingSpeed;
-
-        // Check if typing is complete or deleting is complete
-        if (!isDeleting && charIndex === currentPhrase.length) {
-            currentTypingSpeed = pauseBeforeDelete; // Pause before starting to delete
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false; // Switch to typing mode
-            phraseIndex = (phraseIndex + 1) % phrases.length; // Move to the next phrase
-            currentTypingSpeed = pauseBeforeType; // Pause before typing the next phrase
-        }
-
-        // Schedule the next character update
-        setTimeout(typeWriter, currentTypingSpeed);
-    }
 
     // Intersection Observer for scroll-triggered animations (ONLY for Skills section)
     // This observes elements and adds 'is-animated' class when they enter the viewport
@@ -233,5 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initially show the 'about' section and start its animations on page load
     showSection('about');
 });
+
 
 
